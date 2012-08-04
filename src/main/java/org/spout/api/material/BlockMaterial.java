@@ -49,7 +49,7 @@ public class BlockMaterial extends Material implements Placeable {
 	public static final BlockMaterial UNBREAKABLE = new BlockMaterial("Unbreakable").setHardness(100.f);
 	public static final BlockMaterial SKYBOX = new BasicSkyBox();
 	public static final BlockMaterial ERROR = new BlockMaterial("Missing Plugin").setHardness((100.f));
-	
+
 	public BlockMaterial(String name) {
 		super(name);
 	}

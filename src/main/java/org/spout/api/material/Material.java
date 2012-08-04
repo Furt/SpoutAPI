@@ -31,6 +31,10 @@ package org.spout.api.material;
  */
 import java.util.Arrays;
 
+import com.bulletphysics.collision.dispatch.CollisionObject;
+import com.bulletphysics.collision.shapes.CollisionShape;
+
+import org.spout.api.collision.CollisionFlags;
 import org.spout.api.entity.Entity;
 import org.spout.api.event.player.PlayerInteractEvent.Action;
 import org.spout.api.geo.cuboid.Block;
@@ -55,6 +59,8 @@ public abstract class Material extends MaterialRegistry implements MaterialSourc
 	private Material[] submaterialsContiguous = null;
 	private volatile boolean submaterialsDirty = true;
 	private final short dataMask;
+
+	private final CollisionObject collisionObject = new CollisionObject();
 
 	/**
 	 * Creates and registers a material
@@ -420,6 +426,30 @@ public abstract class Material extends MaterialRegistry implements MaterialSourc
 			return true;
 		}
 		return false;
+	}
+
+	public final CollisionObject getCollisionObject() {
+		return collisionObject;
+	}
+
+	public final CollisionShape getCollisionShape() {
+		return collisionObject.getCollisionShape();
+	}
+
+	public void setCollisionShape(CollisionShape shape) {
+		this.collisionObject.setCollisionShape(shape);
+	}
+
+	public boolean hasCollisionShape() {
+		return this.collisionObject.getCollisionShape() != null;
+	}
+
+	public CollisionFlags getCollisionFlagSet()  {
+		return CollisionFlags.get(this.getCollisionObject().getCollisionFlags());
+	}
+
+	public void setCollisionFlag(CollisionFlags flag) {
+		this.collisionObject.setCollisionFlags(flag.getId());
 	}
 
 	@Override
