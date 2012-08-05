@@ -26,7 +26,6 @@
  */
 package org.spout.api.collision;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -72,7 +71,7 @@ public enum CollisionFlags {
 
 	public static int packFlagsIntoInt(Set<CollisionFlags> flags) {
 		int packed = 0;
-		if (flags == null || flags.isEmpty()) {
+		if (flags == null) {
 			return packed;
 		}
 		for (CollisionFlags f : flags) {
