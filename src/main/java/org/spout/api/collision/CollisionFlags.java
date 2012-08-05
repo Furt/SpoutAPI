@@ -26,8 +26,11 @@
  */
 package org.spout.api.collision;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * An easier to understand version of Bullet's CollisionFlags class.
@@ -41,11 +44,11 @@ public enum CollisionFlags {
 	STATIC_OBJECT(1);
 
 	private final int id;
-	private static final Map<Integer, CollisionFlags> idMap = new HashMap<Integer, CollisionFlags>();
+	private static final Map<Integer, CollisionFlags> rawMap = new HashMap<Integer, CollisionFlags>();
 
 	static {
 		for (CollisionFlags flag : CollisionFlags.values()) {
-			idMap.put(flag.getId(), flag);
+			rawMap.put(flag.getRawId(), flag);
 		}
 	}
 
@@ -53,11 +56,28 @@ public enum CollisionFlags {
 		this.id = id;
 	}
 
-	public int getId() {
+	public int getRawId() {
 		return id;
 	}
 
-	public static CollisionFlags get(int id) {
-		return idMap.get(id);
+	public static Set<CollisionFlags> getFlagsFromInt(int packed) {
+		Set<CollisionFlags> flags = new HashSet<CollisionFlags>();
+		for (CollisionFlags f: CollisionFlags.values()) {
+			if ((packed & f.getRawId()) > 0) {
+				flags.add(f);
+			}
+		}
+		return flags;
+	}
+
+	public static int packFlagsIntoInt(Set<CollisionFlags> flags) {
+		int packed = 0;
+		if (flags == null || flags.isEmpty()) {
+			return packed;
+		}
+		for (CollisionFlags f : flags) {
+			packed |= f.getRawId();
+		}
+		return packed;
 	}
 }

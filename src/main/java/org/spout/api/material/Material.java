@@ -30,6 +30,7 @@ package org.spout.api.material;
  * Defines the characteristics of Blocks or Items.
  */
 import java.util.Arrays;
+import java.util.Set;
 
 import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CollisionShape;
@@ -444,12 +445,12 @@ public abstract class Material extends MaterialRegistry implements MaterialSourc
 		return this.collisionObject.getCollisionShape() != null;
 	}
 
-	public CollisionFlags getCollisionFlagSet()  {
-		return CollisionFlags.get(this.getCollisionObject().getCollisionFlags());
+	public Set<CollisionFlags> getCollisionFlags()  {
+		return CollisionFlags.getFlagsFromInt(this.getCollisionObject().getCollisionFlags());
 	}
 
-	public void setCollisionFlag(CollisionFlags flag) {
-		this.collisionObject.setCollisionFlags(flag.getId());
+	public void setCollisionFlags(Set<CollisionFlags> flags) {
+		this.collisionObject.setCollisionFlags(CollisionFlags.packFlagsIntoInt(flags));
 	}
 
 	@Override
