@@ -24,25 +24,57 @@
  * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
  * including the MIT license.
  */
-package org.spout.api.protocol.builtin.handler;
+package org.spout.api.audio;
 
-import org.spout.api.chat.ChatArguments;
-import org.spout.api.player.Player;
-import org.spout.api.protocol.MessageHandler;
-import org.spout.api.protocol.Session;
-import org.spout.api.protocol.builtin.message.CommandMessage;
+import org.spout.api.resource.Resource;
 
-public class CommandMessageHandler extends MessageHandler<CommandMessage> {
-	@Override
-	public void handle(boolean upstream, Session session, CommandMessage message) {
-		if(!session.hasPlayer()) {
-			return;
-		}
-		Player player = session.getPlayer();
-		String command = session.getEngine().getRootCommand().getChildName(message.getCommand());
-		if (command == null) {
-			player.sendMessage("Unknown command id: ", message.getCommand());
-		}
-		player.processCommand(command, new ChatArguments(message.getArguments()));
+/**
+ * Represents a sound.
+ */
+public abstract class Sound extends Resource {
+	/**
+	 * Gets the sampling rate (sampling frequency) of the sound.
+	 * 
+	 * @return
+	 */
+	public abstract int getSamplingRate();
+
+	/**
+	 * Gets the bit depth of the buffer.
+	 * 
+	 * @return
+	 */
+	public abstract int getBitDepth();
+
+	/**
+	 * Gets the number of channels of the sound.
+	 * 
+	 * @return
+	 */
+	public abstract int getChannels();
+
+	/**
+	 * Gets the size of the buffer.
+	 * 
+	 * @return
+	 */
+	public abstract int getBufferSize();
+
+	/**
+	 * Gets the bit rate of the sample in bits per second.
+	 * 
+	 * @return
+	 */
+	public int getBitRate() {
+		return getSamplingRate() * getBitDepth() * getChannels();
+	}
+
+	/**
+	 * Returns the length of the sound sample in seconds.
+	 * 
+	 * @return
+	 */
+	public float getLength() {
+		return getBufferSize() / (float) (getBitRate() / 8);
 	}
 }

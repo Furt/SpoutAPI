@@ -34,6 +34,7 @@ import org.spout.api.command.Command;
 import org.spout.api.entity.component.controller.type.ControllerType;
 import org.spout.api.map.DefaultedKey;
 import org.spout.api.map.DefaultedKeyImpl;
+import org.spout.api.player.Player;
 import org.spout.api.protocol.Message;
 import org.spout.api.protocol.MessageCodec;
 import org.spout.api.protocol.Protocol;
@@ -77,7 +78,7 @@ public class SpoutProtocol extends Protocol {
 	}
 
 	public Message getKickMessage(ChatArguments message) {
-		Command cmd = Spout.getEngine().getRootCommand().getChild("kick");
+		Command cmd = Spout.getEngine().getRootCommand().getChild("disconnect");
 		if (cmd != null) {
 			return getCommandMessage(cmd, message);
 		} else {
@@ -96,8 +97,13 @@ public class SpoutProtocol extends Protocol {
 	public void initializeSession(Session session) {
 		session.setNetworkSynchronizer(new SpoutNetworkSynchronizer(session));
 
+		session.send(false, new StringMapMessage(StringMapMessage.STRINGMAP_REGISTRATION_MAP, StringMapMessage.Action.SET, StringMap.get(StringMapMessage.STRINGMAP_REGISTRATION_MAP).getItems()));
 		for (StringMap map : StringMap.getAll()) {
 			session.send(false, new StringMapMessage(map.getId(), StringMapMessage.Action.SET, map.getItems()));
 		}
+	}
+
+	@Override
+	public void setPlayerController(Player player) {
 	}
 }

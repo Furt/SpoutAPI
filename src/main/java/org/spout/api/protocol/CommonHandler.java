@@ -78,9 +78,7 @@ public class CommonHandler extends SimpleChannelUpstreamHandler {
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
 		Channel c = e.getChannel();
 
-		/*if (Spout.debugMode()) {
-			ctx.getPipeline().addBefore("2", "messagePrinter", new MessagePrintingHandler());
-		}*/
+		// ctx.getPipeline().addBefore("2", "messagePrinter", new MessagePrintingHandler());
 
 		if (!upstream) {
 			try {
@@ -96,13 +94,6 @@ public class CommonHandler extends SimpleChannelUpstreamHandler {
 				throw new RuntimeException("Exception thrown when connecting", ex);
 			}
 		} else {
-			if (engine instanceof Client) {
-				engine.getChannelGroup().add(c);
-				Session session = engine.newSession(c);
-				engine.getSessionRegistry().add(session);
-				setSession(session);
-				ctx.setAttachment(session);
-			}
 			engine.getLogger().info("Upstream channel connected: " + c + ".");
 		}
 	}
@@ -147,6 +138,7 @@ public class CommonHandler extends SimpleChannelUpstreamHandler {
 			c.close();
 		}
 	}
+
 	public Session getSession() {
 		return this.session.get();
 	}

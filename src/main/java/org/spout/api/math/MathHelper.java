@@ -1232,8 +1232,6 @@ public class MathHelper {
 
 		return res;
 	}
-	
-	
 
 	/**
 	 * Calculates and returns a new Vector3 transformed by the transformation
@@ -1373,5 +1371,9 @@ public class MathHelper {
 			ret = "0"+ret;
 		}
 		return ret;
+	}
+	
+	public static int mod(int x, int div) {
+		return x < 0 ? (x % div) + div : x % div;
 	}
 }

@@ -24,25 +24,34 @@
  * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
  * including the MIT license.
  */
-package org.spout.api.protocol.builtin.handler;
+package org.spout.api.audio;
 
-import org.spout.api.chat.ChatArguments;
-import org.spout.api.player.Player;
-import org.spout.api.protocol.MessageHandler;
-import org.spout.api.protocol.Session;
-import org.spout.api.protocol.builtin.message.CommandMessage;
+/**
+ * Represents the state of a sound source.
+ */
+public enum SoundSourceState {
+	/**
+	 * The sound is currently playing.
+	 */
+	PLAYING,
 
-public class CommandMessageHandler extends MessageHandler<CommandMessage> {
-	@Override
-	public void handle(boolean upstream, Session session, CommandMessage message) {
-		if(!session.hasPlayer()) {
-			return;
-		}
-		Player player = session.getPlayer();
-		String command = session.getEngine().getRootCommand().getChildName(message.getCommand());
-		if (command == null) {
-			player.sendMessage("Unknown command id: ", message.getCommand());
-		}
-		player.processCommand(command, new ChatArguments(message.getArguments()));
-	}
+	/**
+	 * The sound is currently paused.
+	 */
+	PAUSED,
+
+	/**
+	 * The sound is stopped.
+	 */
+	STOPPED,
+
+	/**
+	 * The sound has not been played before.
+	 */
+	INITIAL,
+
+	/**
+	 * The state of the sound is unknown.
+	 */
+	UNKNOWN
 }

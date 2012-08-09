@@ -37,12 +37,11 @@ public class LoginMessageHandler extends MessageHandler<LoginMessage> {
 
 	@Override
 	public void handleServer(Session session, LoginMessage message) {
-		if(!session.hasPlayer()) {
-			return;
-		}
 		session.getEngine().getEventManager().callEvent(new PlayerConnectEvent(session, message.getPlayerName()));
 		session.setState(Session.State.GAME);
-		session.send(false, new LoginMessage("", session.getPlayer().getId()));
+		if (session.hasPlayer()) {
+			session.send(false, new LoginMessage("", session.getPlayer().getId()));
+		}
 	}
 
 	@Override

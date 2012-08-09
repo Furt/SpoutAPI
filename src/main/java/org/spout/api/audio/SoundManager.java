@@ -24,25 +24,21 @@
  * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
  * including the MIT license.
  */
-package org.spout.api.protocol.builtin.handler;
+package org.spout.api.audio;
 
-import org.spout.api.chat.ChatArguments;
-import org.spout.api.player.Player;
-import org.spout.api.protocol.MessageHandler;
-import org.spout.api.protocol.Session;
-import org.spout.api.protocol.builtin.message.CommandMessage;
-
-public class CommandMessageHandler extends MessageHandler<CommandMessage> {
-	@Override
-	public void handle(boolean upstream, Session session, CommandMessage message) {
-		if(!session.hasPlayer()) {
-			return;
-		}
-		Player player = session.getPlayer();
-		String command = session.getEngine().getRootCommand().getChildName(message.getCommand());
-		if (command == null) {
-			player.sendMessage("Unknown command id: ", message.getCommand());
-		}
-		player.processCommand(command, new ChatArguments(message.getArguments()));
-	}
+/**
+ * Manages Sounds.
+ */
+public interface SoundManager {
+	/**
+	 * Initializes the sound manager.
+	 */
+	public void init();
+	
+	/**
+	 * Creates a new SoundSource.
+	 * 
+	 * @return
+	 */
+	public SoundSource createSource(Sound sound);
 }

@@ -24,25 +24,43 @@
  * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
  * including the MIT license.
  */
-package org.spout.api.protocol.builtin.handler;
+package org.spout.api.util.concurrent;
 
-import org.spout.api.chat.ChatArguments;
-import org.spout.api.player.Player;
-import org.spout.api.protocol.MessageHandler;
-import org.spout.api.protocol.Session;
-import org.spout.api.protocol.builtin.message.CommandMessage;
+import static org.junit.Assert.*;
 
-public class CommandMessageHandler extends MessageHandler<CommandMessage> {
-	@Override
-	public void handle(boolean upstream, Session session, CommandMessage message) {
-		if(!session.hasPlayer()) {
-			return;
+import java.util.Random;
+
+import org.junit.Test;
+
+public class AtomicFloatTest {
+
+	@Test
+	public void test() {
+		assertEquals("Floats not equal", new AtomicFloat(0F), new AtomicFloat(0F));
+		
+		AtomicFloat value = new AtomicFloat(-1F);
+		
+		assertTrue("Float does not match expected value", 0F == value.addAndGet(1F));
+		
+		assertTrue("Float does not match expected value", 0F == value.getAndAdd(1F));
+		
+		assertTrue("Float does not match expected value", -1F == value.addAndGet(-2F));
+		
+		Random rand = new Random();
+		float test = rand.nextFloat();
+		value.set(test);
+		assertTrue("Float does not match expected value", test == value.get());
+		
+		value.lazySet(0F);
+		assertTrue("Float does not match expected value", 0F == value.get());
+		
+		if (value.compareAndSet(1F, 1F)) {
+			fail("Compared and set did not accurately compare the current value");
 		}
-		Player player = session.getPlayer();
-		String command = session.getEngine().getRootCommand().getChildName(message.getCommand());
-		if (command == null) {
-			player.sendMessage("Unknown command id: ", message.getCommand());
+		
+		if (!value.compareAndSet(0F, 1F)) {
+			fail("Compared and set did not accurately compare the current value");
 		}
-		player.processCommand(command, new ChatArguments(message.getArguments()));
 	}
+
 }
