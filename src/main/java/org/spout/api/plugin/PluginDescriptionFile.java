@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.spout.api.datatable.Datatable;
 import org.spout.api.datatable.DatatableTuple;
 import org.spout.api.datatable.GenericDatatableMap;
 import org.spout.api.datatable.value.DatatableBool;
@@ -48,7 +47,7 @@ import org.spout.api.util.config.serialization.Serialization;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 
-public class PluginDescriptionFile implements Datatable {
+public class PluginDescriptionFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Yaml yaml = new Yaml(new SafeConstructor());
 	public static final List<String> RESTRICTED_NAMES = Collections.unmodifiableList(Arrays.asList(

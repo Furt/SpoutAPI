@@ -30,6 +30,7 @@ import java.util.UUID;
 
 import org.spout.api.Source;
 import org.spout.api.collision.CollisionModel;
+import org.spout.api.entity.components.DatatableComponent;
 import org.spout.api.geo.World;
 import org.spout.api.geo.WorldSource;
 import org.spout.api.geo.cuboid.Chunk;
@@ -48,7 +49,7 @@ import org.spout.api.util.thread.SnapshotRead;
 /**
  * Represents an entity, which may or may not be spawned into the world.
  */
-public interface Entity extends Source, Tickable, WorldSource {
+public interface Entity extends Source, Tickable, WorldSource, ComponentHolder {
 	public int getId();
 
 	/**
@@ -71,6 +72,19 @@ public interface Entity extends Source, Tickable, WorldSource {
 	 */
 	@DelayedWrite
 	public void setController(Controller controller);
+	
+	/**
+	 * Returns the player controller, or null if the entity doesn't have a player
+	 * @return the Player Component, or null if it doesn't exist
+	 */
+	public Player getPlayer();
+	
+	/**
+	 * Returns the datatable component attached to the parent entity.  This component always exists
+	 * @return
+	 */
+	public DatatableComponent getDataMap();
+	
 
 	// TODO - add thread timing annotations
 	public void setModel(Model model);

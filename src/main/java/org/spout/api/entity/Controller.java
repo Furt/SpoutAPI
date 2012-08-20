@@ -26,22 +26,11 @@
  */
 package org.spout.api.entity;
 
-import java.io.Serializable;
-
 import org.spout.api.entity.controller.type.ControllerType;
 import org.spout.api.event.player.PlayerInteractEvent;
-import org.spout.api.map.DefaultedMap;
-import org.spout.api.tickable.Tickable;
 
-public interface Controller extends ComponentHolder, Tickable {
-	/**
-	 * Called when this entity is attached to an entity.
-	 * <br/><br/>
-	 * If this entity was serialized and deserialized, any serializable
-	 * information stored in {@link #getDataMap()} will be available.
-	 */
-	public abstract void onAttached();
-
+public interface Controller extends Component {
+	
 	/**
 	 * Called when this entity is detached from the entity (normally due to the entity dieing or being removed from the world).
 	 * Occurs before the Pre-Snapshot of the tick.
@@ -67,15 +56,6 @@ public interface Controller extends ComponentHolder, Tickable {
 	 * @return entity type
 	 */
 	public ControllerType getType();
-
-	/**
-	 * Gets a map of persistent string mapped serializable values attached to this entity.
-	 * This map can be used to store any data relevant to the entity.
-	 * <br/> <br/>
-	 * This map is thread-safe, and will be saved between restarts if the entity {@link #isSavable()}.
-	 * @return thread-safe persistent storage map
-	 */
-	public DefaultedMap<String, Serializable> getDataMap();
 
 	/**
 	 * Called immediately <i>before</i> a entity and it's parent entity are
@@ -114,16 +94,5 @@ public interface Controller extends ComponentHolder, Tickable {
 	 * @return important
 	 */
 	public boolean isImportant();
-
-	/**
-	 * Gets the entity this entity is attached to.
-	 * @return The entity this entity is attached to
-	 */
-	public Entity getParent();
-
-	/**
-	 * Attaches to the entity and sets the parent as that entity.
-	 * @param parent The Entity this entity controls
-	 */
-	public void attachToEntity(Entity parent);
+			
 }

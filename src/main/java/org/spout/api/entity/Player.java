@@ -32,9 +32,10 @@ import org.spout.api.command.CommandSource;
 import org.spout.api.entity.state.PlayerInputState;
 import org.spout.api.protocol.NetworkSynchronizer;
 import org.spout.api.protocol.Session;
+import org.spout.api.protocol.event.ProtocolEvent;
 import org.spout.api.util.thread.Threadsafe;
 
-public interface Player extends CommandSource, Entity {
+public interface Player extends CommandSource, Component {
 	/**
 	 * Gets the player's name. This method is thread-safe.
 	 * @return the player's name
@@ -99,4 +100,8 @@ public interface Player extends CommandSource, Entity {
 	public PlayerInputState input();
 
 	public void processInput(PlayerInputState state);
+	
+	public void copySnapshot();
+	
+	public void callProtocolEvent(ProtocolEvent event);
 }

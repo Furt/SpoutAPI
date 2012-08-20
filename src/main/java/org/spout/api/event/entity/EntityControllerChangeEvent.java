@@ -32,7 +32,7 @@ import org.spout.api.entity.Entity;
 import org.spout.api.event.HandlerList;
 
 /**
- * Called when an entity's {@link org.spout.api.entity.BasicController} is changing.
+ * Called when an entity's {@link org.spout.api.entity.BaseController} is changing.
  */
 public class EntityControllerChangeEvent extends EntityEvent {
 	private static HandlerList handlers = new HandlerList();

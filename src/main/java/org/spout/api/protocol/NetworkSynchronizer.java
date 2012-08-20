@@ -366,7 +366,7 @@ public abstract class NetworkSynchronizer {
 
 	private void addObserver(Chunk c) {
 		observed.add(c);
-		c.refreshObserver(owner);
+		c.refreshObserver(owner.getParent());
 	}
 
 	private void removeObserver(Point p) {
@@ -379,7 +379,7 @@ public abstract class NetworkSynchronizer {
 
 	private void removeObserver(Chunk c) {
 		observed.remove(c);
-		c.removeObserver(owner);
+		c.removeObserver(owner.getParent());
 	}
 
 	private void checkChunkUpdates(Point currentPosition) {

@@ -24,36 +24,61 @@
  * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
  * including the MIT license.
  */
-package org.spout.api.entity.controller;
+package org.spout.api.entity;
 
-import org.spout.api.entity.BasicController;
-import org.spout.api.entity.Entity;
-import org.spout.api.entity.Player;
 import org.spout.api.entity.controller.type.ControllerType;
+import org.spout.api.event.player.PlayerInteractEvent.Action;
 
-/**
- * Represents a {@link org.spout.api.entity.BasicController} that is player controlled.
- */
-public abstract class PlayerController extends BasicController {
-	protected PlayerController(ControllerType type) {
-		super(type);
+public abstract class BaseController extends BaseComponent implements Controller {
+	//Components
+	private final ControllerType type;
+	
+	protected BaseController(ControllerType type) {
+		this.type = type;
 	}
 
+	public abstract void onAttached();
+	
 	@Override
-	public boolean isSavable() {
-		return false;
+	public void onTick(float dt) {
+		super.onTick(dt);
 	}
 
+	public void onDetached(){
+		super.onDetached();
+	}
 	@Override
-	public boolean isImportant() {
+	public boolean canTick() {
 		return true;
 	}
 
-	@Override
-	public void attachToEntity(Entity parent) {
-		if (!(parent instanceof Player)) {
-			throw new IllegalStateException("Trying to set a non Player entity as the parent of a PlayerController!");
-		}
-		super.attachToEntity(parent);
+	public void onDeath() {
+
 	}
+
+	public void finalizeTick() {
+
+	}
+
+	public void onInteract(Entity entity, Action type) {
+
+	}
+
+	public ControllerType getType() {
+		return type;
+	}
+
+	public void onSave() {
+
+	}
+
+	public boolean isSavable() {
+		return true;
+	}
+
+	public boolean isImportant() {
+		return false;
+	}
+	
+	
 }

@@ -29,9 +29,9 @@ package org.spout.api;
 import java.util.UUID;
 
 import org.spout.api.audio.SoundManager;
+import org.spout.api.entity.Entity;
 import org.spout.api.geo.World;
 import org.spout.api.keyboard.Input;
-import org.spout.api.entity.Player;
 import org.spout.api.plugin.PluginStore;
 import org.spout.api.protocol.PortBinding;
 import org.spout.api.render.Camera;
@@ -46,7 +46,7 @@ public interface Client extends Engine {
 	 *
 	 * @return active player
 	 */
-	public Player getActivePlayer();
+	public Entity getActivePlayer();
 
 	/**
 	 * The Camera object is the viewport into the scene

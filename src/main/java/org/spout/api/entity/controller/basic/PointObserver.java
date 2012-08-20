@@ -27,16 +27,16 @@
 package org.spout.api.entity.controller.basic;
 
 import org.spout.api.Spout;
-import org.spout.api.entity.BasicController;
+import org.spout.api.entity.BaseController;
 import org.spout.api.entity.controller.type.ControllerType;
 import org.spout.api.entity.controller.type.EmptyConstructorControllerType;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.geo.discrete.Point;
 
-/**
+/** 
  * Controller that observes chunks around a point. It will always keep these chunks in memory.
  */
-public class PointObserver extends BasicController {
+public class PointObserver extends BaseController {
 	public static final int CHUNK_VIEW_DISTANCE = 4;
 	public static final ControllerType TYPE = new EmptyConstructorControllerType(PointObserver.class, "Point Observer");
 	private Point currPoint;
@@ -78,4 +78,6 @@ public class PointObserver extends BasicController {
 	public boolean isImportant() {
 		return true;
 	}
+
+	
 }

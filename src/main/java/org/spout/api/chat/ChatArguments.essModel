@@ -1,0 +1,26 @@
+[Box: ::org.spout.api.entity - ::org.spout.api.entity::ComponentBase]
+X=468
+Y=121
+
+[Box: ::org.spout.api.entity - ::org.spout.api.entity::Entity]
+X=96
+Y=424
+
+[Box: ::org.spout.api.entity - ::org.spout.api.entity::EntityComponent]
+X=390
+Y=426
+
+[Box: ::org.spout.api.entity - ::org.spout.api.tickable::Tickable]
+X=401
+Y=247
+
+[Box: ::org.spout.api.entity - ::org.spout.api::Source]
+X=39
+Y=308
+
+[Diagram: ::org.spout.api.entity]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+

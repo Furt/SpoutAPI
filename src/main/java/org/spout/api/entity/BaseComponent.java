@@ -26,33 +26,92 @@
  */
 package org.spout.api.entity;
 
-public interface ComponentHolder {
-	/**
-	 * Adds a new Component to the Entity.  If the entity already contains a component of that type, then a new component is not
-	 * constructed, and the one already attached is returned
-	 * @param component the Component to be added
-	 * @return The component created, or the one already attached
-	 */
-	public <T extends Component> T addComponent(T component);
+import org.spout.api.entity.components.DatatableComponent;
+import org.spout.api.geo.discrete.Transform;
 
-	/**
-	 * Removes a component from the list
-	 * @param component Type of component to remove
-	 * @return True if a component is removed, false if not.  False is also returned if the component doesn't exist.
-	 */
-	public boolean removeComponent(Class<? extends Component> component);
+public abstract class BaseComponent implements Component {
+	private Entity parent;	
 
-	/**
-	 * Returns the first Component that is assignable from the given class, or null if it doesn't exist
-	 * @param component the type of component to get
-	 * @return The component instance, or NULL if it doesn't exist
-	 */
-	public <T extends Component> T getComponent(Class<T> component);
+	@Override
+	public final void attachToEntity(Entity parent) {
+		this.parent = parent;
+	}
 
-	/**
-	 * Returns true if a component exists that is assignable from the given class
-	 * @param component
-	 * @return True if a component exists that is assignable from the given class, false if not
-	 */
-	public boolean hasComponent(Class<? extends Component> component);
+	@Override
+	public final Entity getParent() {
+		return parent;
+	}
+
+	@Override
+	public void onAttached(){
+		
+	}
+	
+
+	@Override
+	public void onDetached() {
+				
+	}
+	@Override
+	public void onTick(float dt) {
+
+	}
+	
+	@Override
+	public void tick(float dt) {
+		if(canTick()) {
+			onTick(dt);	
+		}
+	}
+
+	@Override
+	public boolean canTick() {
+		return true;
+	}
+
+	@Override
+	public final Controller getController() {
+		return getParent().getController();
+	}
+
+	@Override
+	public final Player getPlayer() {
+		return getParent().getComponent(Player.class);
+	}
+
+	@Override
+	public final DatatableComponent getDataMap() {
+		return getParent().getComponent(DatatableComponent.class);
+	}
+	
+	@Override
+	public final Transform getTransform() {
+		return getParent().getTransform();
+	}
+
+	@Override
+	public void onSpawned() {
+	
+	}
+
+	@Override
+	public void onKilled() {
+		
+	}
+
+	@Override
+	public void onAwake() {
+		
+	}
+
+	@Override
+	public void onSleep() {
+		
+	}
+
+	@Override
+	public void onSync() {
+				
+	}
+
 }
