@@ -71,50 +71,45 @@ public abstract class EconomyService {
 	 * Checks if the given account has at least as much as the amount specified.
 	 * 
 	 * @param name of the account to check
-	 * @param world name of the account
 	 * @param amount to check if the account has
 	 * @return true if the account has the given amount
 	 */
-	public abstract boolean has(String name, String world, double amount);
+	public abstract boolean has(String name, double amount);
 
 	/**
 	 * Returns the balance of the given account name.
 	 * 
 	 * @param name of the account to check
-	 * @param world name of the account
 	 * @return double balance of the account
 	 */
-	public abstract double get(String name, String world);
+	public abstract double get(String name);
 
 	/**
 	 * Withdraws the given amount from the account name specified, this operation should fail if the account would drop below 0.
 	 * 
 	 * @param name of the account to withdraw from
-	 * @param world name of the account
 	 * @param amount to withdraw from the account
 	 * @return true if the withdrawal was successful
 	 */
-	public abstract boolean withdraw(String name, String world, double amount);
+	public abstract boolean withdraw(String name, double amount);
 
 	/**
 	 * Deposits the given amount into the account specific, this operation should only fail if the economy implementation has maximum values for accounts.
 	 * 
 	 * @param name of the account to deposit into
-	 * @param world name of the account
 	 * @param amount to deposit into the account
 	 * @return true if the deposit was successful
 	 */
-	public abstract boolean deposit(String name, String world, double amount);
+	public abstract boolean deposit(String name, double amount);
 
 
 	/**
 	 * Checks if the account exists in the economy service.
 	 * 
 	 * @param name of the account
-	 * @param world name of the account
 	 * @return if the account exists
 	 */
-	public abstract boolean exists(String name, String world);
+	public abstract boolean exists(String name);
 
 	/**
 	 * This is a copied-method that assumes the player's name is their account name and<br/>
@@ -125,7 +120,7 @@ public abstract class EconomyService {
 	 * @return true if the account has the given amount
 	 */
 	public boolean has(Player player, double amount) {
-		return has(player.getName(), player.getWorld().getName(), amount);
+		return has(player.getName(), amount);
 	}
 
 	/**
@@ -136,7 +131,7 @@ public abstract class EconomyService {
 	 * @return double balance of the account
 	 */
 	public double get(Player player) {
-		return get(player.getName(), player.getWorld().getName());
+		return get(player.getName());
 	}
 
 	/**
@@ -148,7 +143,7 @@ public abstract class EconomyService {
 	 * @return true if the withdrawal was successful
 	 */
 	public boolean withdraw(Player player, double amount) {
-		return withdraw(player.getName(), player.getWorld().getName(), amount);
+		return withdraw(player.getName(), amount);
 	}
 
 	/**
@@ -160,7 +155,7 @@ public abstract class EconomyService {
 	 * @return true if the deposit was successful
 	 */
 	public boolean deposit(Player player, double amount) {
-		return deposit(player.getName(), player.getWorld().getName(), amount);
+		return deposit(player.getName(), amount);
 	}
 
 	/**
@@ -171,7 +166,66 @@ public abstract class EconomyService {
 	 * @return true if the account exists, otherwise false
 	 */
 	public boolean exists(Player player) {
-		return exists(player.getName(), player.getWorld().getName());
+		return exists(player.getName());
+	}
+	
+	/**
+	 * This is a copied-method that assumes the world name + player's name is their account name and<br/>
+	 * Checks if the given account has at least as much as the amount specified.
+	 * 
+	 * @param player of the account to check
+	 * @param world name of the account
+	 * @param amount to check if the account has
+	 * @return true if the account has the given amount
+	 */
+	public boolean has(Player player, World world, double amount) {
+		return has(world.getName() + "-" + player.getName(), amount);
+	}
+
+	/**
+	 * This is a copied-method that assumes the world name + player's name is their account name and<br/>
+	 * Returns the balance of the given account name.
+	 * 
+	 * @param player of the account to check
+	 * @return double balance of the account
+	 */
+	public double get(Player player, World world) {
+		return get(world.getName() + "-" + player.getName());
+	}
+
+	/**
+	 * This is a copied-method that assumes the world name + player's name is their account name and<br/>
+	 * Withdraws the given amount from the account name specified, this operation should fail if the account would drop below 0.
+	 * 
+	 * @param player of the account to withdraw from
+	 * @param amount to withdraw from the account
+	 * @return true if the withdrawal was successful
+	 */
+	public boolean withdraw(Player player, World world, double amount) {
+		return withdraw(world.getName() + "-" + player.getName(), amount);
+	}
+
+	/**
+	 * This is a copied-method that assumes the world name + player's name is their account name and<br/>
+	 * Deposits the given amount into the account specific, this operation should only fail if the economy implementation has maximum values for accounts.
+	 * 
+	 * @param player of the account to deposit into
+	 * @param amount to deposit into the account
+	 * @return true if the deposit was successful
+	 */
+	public boolean deposit(Player player, World world double amount) {
+		return deposit(world.getName() + "-" + player.getName(), amount);
+	}
+
+	/**
+	 * This is a copied-method that assumes the world name + player's name is their account name and<br/>
+	 * Checks if the account exists in the economy service.
+	 * 
+	 * @param player of the account to check existence of.
+	 * @return true if the account exists, otherwise false
+	 */
+	public boolean exists(Player player, World world) {
+		return exists(world.getName() + "-" + player.getName());
 	}
 
 	/**
