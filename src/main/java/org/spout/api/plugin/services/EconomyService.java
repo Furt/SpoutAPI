@@ -213,7 +213,7 @@ public abstract class EconomyService {
 	 * @param amount to deposit into the account
 	 * @return true if the deposit was successful
 	 */
-	public boolean deposit(Player player, World world double amount) {
+	public boolean deposit(Player player, World world, double amount) {
 		return deposit(world.getName() + "-" + player.getName(), amount);
 	}
 
